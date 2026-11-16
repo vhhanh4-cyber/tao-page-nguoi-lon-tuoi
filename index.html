@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Tạo Page Cho Người Lớn Tuổi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --bg-soft:#fff7e8;
+  --card:#ffffff;
+  --text:#1c1917;
+  --muted:#57534e;
+  --primary:#0f766e;
+  --primary-dark:#115e59;
+  --primary-soft:#e0f2f1;
+  --accent:#b45309;
+  --accent-soft:#fef3c7;
+  --border:#d6d3d1;
+  --border-strong:#78716c;
+  --success:#15803d;
+  --radius:20px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1c1917;
+    --bg-soft:#292524;
+    --card:#292524;
+    --text:#fafaf9;
+    --muted:#d6d3d1;
+    --primary:#2dd4bf;
+    --primary-dark:#5eead4;
+    --primary-soft:#134e4a;
+    --accent:#fbbf24;
+    --accent-soft:#451a03;
+    --border:#57534e;
+    --border-strong:#a8a29e;
+  }
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;font-family:"Be Vietnam Pro",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,textarea{font:inherit}
+button{min-height:56px}
+.wrap{max-width:700px;margin:0 auto;padding:20px 18px 48px}
+
+/* Progress */
+.progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.progress-label{font-size:1.15rem;font-weight:800}
+.progress-heart{font-size:1rem;color:var(--muted);font-weight:600;text-align:right}
+.progress-bar{display:flex;gap:8px;margin-bottom:28px}
+.progress-bar span{flex:1;height:14px;border-radius:999px;background:var(--border);display:block}
+.progress-bar span.done{background:var(--primary)}
+.progress-bar span.now{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+.subtitle{font-size:1.1rem;color:var(--muted);margin:0 0 24px;line-height:1.55}
+h2.section-title{font-size:1.3rem;margin:28px 0 14px;font-weight:800}
+
+/* Topic grid */
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.topic-grid{grid-template-columns:1fr}}
+.pick-card{
+  display:flex;align-items:center;gap:16px;text-align:left;width:100%;
+  background:var(--card);border:3px solid var(--border);border-radius:var(--radius);
+  padding:18px 16px;cursor:pointer;min-height:96px;color:var(--text);
+}
+.pick-card:active{transform:scale(.99)}
+.pick-card .icon{font-size:2.2rem;line-height:1;flex-shrink:0;width:56px;height:56px;display:grid;place-items:center;background:var(--bg-soft);border-radius:16px}
+.pick-card .label{font-size:1.15rem;font-weight:700;line-height:1.3}
+.pick-card.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 2px var(--primary)}
+.pick-card .check{display:none;margin-left:auto;font-size:1.4rem;font-weight:800;color:var(--primary);flex-shrink:0}
+.pick-card.selected .check{display:block}
+
+/* Option list (names / intros) */
+.option-list{display:flex;flex-direction:column;gap:14px}
+.option-card{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:var(--card);border:3px solid var(--border);border-radius:var(--radius);
+  padding:20px 18px;cursor:pointer;min-height:72px;color:var(--text);font-size:1.2rem;font-weight:700;line-height:1.35;
+}
+.option-card.small-text{font-size:1.08rem;font-weight:600}
+.option-card.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 2px var(--primary)}
+.option-card .check{display:none;margin-left:auto;font-size:1.4rem;color:var(--primary);flex-shrink:0;font-weight:800}
+.option-card.selected .check{display:block}
+
+.field-label{display:block;font-size:1.1rem;font-weight:700;margin:26px 0 10px}
+.big-input{
+  width:100%;min-height:64px;border:3px solid var(--border-strong);border-radius:16px;
+  padding:16px 18px;font-size:1.2rem;background:var(--card);color:var(--text);
+}
+.big-input:focus{outline:4px solid var(--accent-soft);border-color:var(--primary)}
+textarea.big-input{min-height:88px;resize:vertical}
+
+.preview-box{
+  margin-top:22px;border:3px dashed var(--accent);background:var(--accent-soft);
+  border-radius:var(--radius);padding:20px;text-align:center;
+}
+.preview-box .pv-label{font-size:1rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.preview-box .pv-name{font-size:1.6rem;font-weight:800;line-height:1.3;word-break:break-word}
+.preview-box .pv-intro{font-size:1.1rem;margin-top:8px;line-height:1.5}
+
+/* Artwork picker */
+.art-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:560px){.art-row{grid-template-columns:1fr 1fr 1fr;gap:10px}}
+.art-card{
+  background:var(--card);border:3px solid var(--border);border-radius:18px;padding:8px;cursor:pointer;color:var(--text);
+  display:flex;flex-direction:column;gap:8px;align-items:stretch;min-height:56px;
+}
+.art-card svg{width:100%;height:auto;display:block;border-radius:12px}
+.art-card.avatar svg{border-radius:50%}
+.art-card .art-name{font-size:.95rem;font-weight:700;text-align:center;line-height:1.3;padding:2px 2px 4px}
+.art-card.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 2px var(--primary)}
+
+/* Facebook mock preview */
+.fb-mock{
+  border:3px solid var(--border);border-radius:22px;overflow:hidden;background:var(--card);margin-top:10px;text-align:left;
+}
+.fb-cover{position:relative;line-height:0}
+.fb-cover svg{width:100%;height:auto;display:block}
+.fb-body{padding:0 20px 20px;position:relative}
+.fb-avatar{
+  width:110px;height:110px;border-radius:50%;border:5px solid var(--card);overflow:hidden;margin-top:-55px;position:relative;background:#eee;line-height:0;
+}
+.fb-avatar svg{width:100%;height:100%;display:block}
+.fb-name{font-size:1.45rem;font-weight:800;margin-top:10px;line-height:1.3;word-break:break-word}
+.fb-intro{font-size:1.05rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.fb-category{font-size:1.05rem;color:var(--text);margin-top:8px;line-height:1.5}
+.fb-category strong{font-weight:800}
+.fb-follow{
+  margin-top:16px;display:inline-flex;align-items:center;justify-content:center;background:#1877f2;color:#fff;font-weight:700;
+  border-radius:12px;padding:12px 22px;font-size:1rem;min-height:52px;
+}
+
+/* Bottom nav */
+.nav-row{display:flex;gap:14px;margin-top:34px}
+.btn{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;
+  border-radius:16px;padding:16px 18px;font-size:1.15rem;font-weight:800;cursor:pointer;border:3px solid transparent;
+  min-height:64px;text-decoration:none;line-height:1.3;
+}
+.btn-primary{background:var(--primary);color:#fff}
+@media (prefers-color-scheme: dark){.btn-primary{color:#042f2e}}
+.btn-primary:disabled{opacity:.38;cursor:not-allowed}
+.btn-secondary{background:var(--card);color:var(--text);border-color:var(--border-strong)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-full{width:100%;flex:none}
+.hint{font-size:1rem;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5}
+
+/* Step 5 guide */
+.guide{display:flex;flex-direction:column;gap:18px;margin-top:22px}
+.guide-step{display:flex;gap:16px;align-items:flex-start;background:var(--bg-soft);border:2px solid var(--border);border-radius:var(--radius);padding:20px}
+.guide-num{
+  flex-shrink:0;width:52px;height:52px;border-radius:50%;background:var(--primary);color:#fff;
+  display:grid;place-items:center;font-size:1.4rem;font-weight:800;
+}
+@media (prefers-color-scheme: dark){.guide-num{color:#042f2e}}
+.guide-body{flex:1;min-width:0}
+.guide-body p{margin:0 0 12px;font-size:1.1rem;line-height:1.55}
+.guide-body p strong{font-weight:800}
+.guide-body .btn{width:100%}
+.copy-text{
+  background:var(--card);border:2px dashed var(--border-strong);border-radius:12px;padding:12px 14px;
+  font-size:1.08rem;font-weight:700;margin-bottom:12px;word-break:break-word;line-height:1.45;
+}
+.encourage{
+  margin-top:28px;text-align:center;font-size:1.25rem;font-weight:700;line-height:1.55;
+  background:var(--primary-soft);border-radius:var(--radius);padding:24px 20px;
+}
+.restart-link{
+  display:flex;align-items:center;justify-content:center;width:100%;margin-top:18px;min-height:56px;
+  background:none;border:none;color:var(--muted);font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:4px;
+}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:26px;z-index:50;
+  background:#1c1917;color:#fff;font-size:1.05rem;font-weight:700;padding:16px 22px;border-radius:999px;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);display:none;max-width:90vw;text-align:center;
+}
+.toast.show{display:block}
+.step{display:none}
+.step.active{display:block}
+.success-badge{font-size:3rem;text-align:center;display:block;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Progress -->
+  <div class="progress-head">
+    <div class="progress-label" id="progressLabel">Bước 1 / 5</div>
+    <div class="progress-heart">Làm từ từ, không vội ạ</div>
+  </div>
+  <div class="progress-bar" id="progressBar" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- STEP 1 -->
+  <section class="step active" id="step1">
+    <h1>Page của bạn nói về điều gì?</h1>
+    <p class="subtitle">Bạn cứ chạm vào <strong>1 ô</strong> mà bạn thích nhất. Chọn sai cũng không sao, quay lại sửa được.</p>
+    <div class="topic-grid" id="topicGrid"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" disabled style="opacity:.45;cursor:not-allowed">← Quay lại</button>
+      <button class="btn btn-primary" id="next1" disabled>Tiếp tục →</button>
+    </div>
+    <p class="hint">Chưa nghĩ ra? Cứ chọn ô gần giống nhất với điều bạn muốn chia sẻ.</p>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step" id="step2">
+    <h1>Đặt tên cho Page</h1>
+    <p class="subtitle">Chạm vào <strong>1 tên có sẵn</strong> bên dưới, hoặc tự viết tên của bạn ở ô dưới cùng.</p>
+    <div class="option-list" id="nameList"></div>
+    <label class="field-label" for="customName">Hoặc tự viết tên của bạn</label>
+    <input class="big-input" id="customName" type="text" placeholder="Ví dụ: Góc Nhỏ Của Bà Lan" autocomplete="off" />
+    <div class="preview-box">
+      <div class="pv-label">Tên Page của bạn sẽ là:</div>
+      <div class="pv-name" id="namePreview">— chưa chọn tên —</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" data-back="1">← Quay lại</button>
+      <button class="btn btn-primary" id="next2" disabled>Tiếp tục →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step" id="step3">
+    <h1>Câu giới thiệu</h1>
+    <p class="subtitle">Đây là <strong>1 câu ngắn</strong> hiện ngay dưới tên Page, để mọi người biết Page của bạn. Chạm vào 1 câu bạn thích.</p>
+    <div class="option-list" id="introList"></div>
+    <label class="field-label" for="customIntro">Hoặc tự viết câu của bạn</label>
+    <textarea class="big-input" id="customIntro" placeholder="Ví dụ: Nơi tôi chia sẻ niềm vui mỗi ngày." rows="2"></textarea>
+    <div class="preview-box">
+      <div class="pv-label">Câu giới thiệu sẽ hiện như sau:</div>
+      <div class="pv-intro" id="introPreview" style="font-size:1.2rem;font-weight:700">— chưa chọn câu nào —</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" data-back="2">← Quay lại</button>
+      <button class="btn btn-primary" id="next3" disabled>Tiếp tục →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="step" id="step4">
+    <h1>Chọn ảnh cho Page</h1>
+    <p class="subtitle">Chọn <strong>mỗi loại 1 ảnh</strong>. Ở dưới cùng, bạn sẽ thấy Page của mình trông như thế nào.</p>
+
+    <h2 class="section-title">1 &nbsp;·&nbsp; Ảnh đại diện (ảnh tròn, nhỏ)</h2>
+    <div class="art-row" id="avatarRow"></div>
+
+    <h2 class="section-title">2 &nbsp;·&nbsp; Ảnh bìa (ảnh ngang, to ở trên)</h2>
+    <div class="art-row" id="coverRow"></div>
+
+    <h2 class="section-title">Xem trước Page của bạn</h2>
+    <div class="fb-mock" id="fbMock4"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-secondary" data-back="3">← Quay lại</button>
+      <button class="btn btn-primary" id="next4">Tiếp tục →</button>
+    </div>
+  </section>
+
+  <!-- STEP 5 -->
+  <section class="step" id="step5">
+    <span class="success-badge" aria-hidden="true">🎉</span>
+    <h1 style="text-align:center">Xong! Bộ Page của bạn đã sẵn sàng</h1>
+    <p class="subtitle" style="text-align:center">Đây là Page của bạn. Bên dưới là 6 việc nhỏ để tạo Page thật trên Facebook — làm lần lượt từng việc một, không vội.</p>
+
+    <div class="fb-mock" id="fbMock5"></div>
+
+    <div class="guide">
+      <div class="guide-step">
+        <div class="guide-num">1</div>
+        <div class="guide-body">
+          <p><strong>Mở Facebook để tạo Page</strong><br>Bấm nút xanh bên dưới. Facebook sẽ mở ra một trang mới.</p>
+          <a class="btn btn-primary" href="https://www.facebook.com/pages/create" target="_blank" rel="noopener">Mở Facebook →</a>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">2</div>
+        <div class="guide-body">
+          <p><strong>Dán tên Page</strong><br>Bấm nút “Sao chép tên” ở đây, rồi quay sang Facebook, chạm vào ô tên Page và bấm <strong>Dán</strong>.</p>
+          <div class="copy-text" id="finalName"></div>
+          <button class="btn btn-accent" id="copyNameBtn">📋 &nbsp;Sao chép tên</button>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">3</div>
+        <div class="guide-body">
+          <p><strong>Chọn loại Page</strong><br>Trên Facebook, bạn tìm và bấm vào ô ghi <strong>“Trang cá nhân”</strong> hoặc <strong>“Blog cá nhân”</strong> (nếu Facebook hỏi bạn muốn tạo Trang công khai hay Hồ sơ, hãy chọn <strong>Tạo Trang</strong>).</p>
+          <p>Chạm chọn một loại dưới đây, rồi bấm nút sao chép.</p>
+          <div class="option-list" id="typeList" style="margin-bottom:14px">
+            <button class="option-card" type="button" data-type="Trang cá nhân"><span>Trang cá nhân</span><span class="check" aria-hidden="true">✓</span></button>
+            <button class="option-card selected" type="button" data-type="Blog cá nhân"><span>Blog cá nhân</span><span class="check" aria-hidden="true">✓</span></button>
+          </div>
+          <button class="btn btn-accent" id="copyTypeBtn">📋 &nbsp;Sao chép loại Page</button>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">4</div>
+        <div class="guide-body">
+          <p><strong>Điền ô Hạng mục (ô bắt buộc)</strong><br>Facebook bắt buộc phải điền ô này mới cho tạo Page. Hạng mục của Page bạn là chữ ở ô dưới đây.<br>Gõ hoặc dán chữ này vào ô Hạng mục, rồi chạm vào dòng chữ hiện ra ở dưới.</p>
+          <div class="copy-text" id="finalCategory" style="font-size:1.35rem"></div>
+          <button class="btn btn-accent" id="copyCategoryBtn">📋 &nbsp;Sao chép hạng mục</button>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">5</div>
+        <div class="guide-body">
+          <p><strong>Dán câu giới thiệu và thêm 2 ảnh</strong><br>Sao chép câu giới thiệu, dán vào ô giới thiệu trên Facebook. Sau đó tải 2 ảnh ở đây về máy, rồi tải lên Facebook.</p>
+          <div class="copy-text" id="finalIntro"></div>
+          <button class="btn btn-accent" id="copyIntroBtn" style="margin-bottom:12px">📋 &nbsp;Sao chép câu giới thiệu</button>
+          <button class="btn btn-secondary" id="dlAvatarBtn" style="margin-bottom:12px">⬇ &nbsp;Tải ảnh đại diện</button>
+          <button class="btn btn-secondary" id="dlCoverBtn">⬇ &nbsp;Tải ảnh bìa</button>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">6</div>
+        <div class="guide-body">
+          <p><strong>Bấm Tiếp theo cho tới khi thấy nút Xong</strong><br>Trên Facebook, bấm nút <strong>Tiếp theo</strong> ở phía dưới màn hình. Cứ bấm tiếp qua các màn hình sau — mấy màn hình này cứ để nguyên như vậy, không cần chọn thêm gì. Khi nào thấy nút <strong>Xong</strong> thì bấm vào nút Xong. Vậy là Page của bạn đã được tạo xong!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="encourage">Bạn làm được rồi đấy! 💛<br>Cứ làm chậm rãi từng bước một.<br>Page đầu tiên không cần hoàn hảo — có Page để chia sẻ là vui rồi.</div>
+
+    <button class="restart-link" id="restartBtn">↺ &nbsp;Làm lại từ đầu</button>
+  </section>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============ ARTWORK (SVG, no text inside) ============ */
+function avatarSVG(i){
+  if(i===0) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0f766e"/><circle cx="100" cy="100" r="72" fill="#f0fdfa"/><path d="M100 138c-22-14-30-30-26-48 12 4 20 10 26 20 6-10 14-16 26-20 4 18-4 34-26 48z" fill="#f472b6"/><path d="M62 128c14 12 24 16 38 16s24-4 38-16c-6 20-20 30-38 30s-32-10-38-30z" fill="#14b8a6"/><circle cx="100" cy="86" r="10" fill="#fbbf24"/></svg>';
+  if(i===1) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#fef3c7"/><circle cx="100" cy="112" r="42" fill="#f59e0b"/><circle cx="100" cy="112" r="56" fill="none" stroke="#fbbf24" stroke-width="6" stroke-dasharray="10 12"/><path d="M0 158 Q50 128 100 148 T200 142 V200 H0 Z" fill="#0f766e"/><path d="M0 176 Q60 152 120 168 T200 164 V200 H0 Z" fill="#115e59"/></svg>';
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#fff7ed"/><path d="M40 104 L100 52 L160 104 V156 a6 6 0 0 1-6 6 H46 a6 6 0 0 1-6-6 Z" fill="#ffffff" stroke="#b45309" stroke-width="7"/><path d="M28 108 L100 44 L172 108" fill="none" stroke="#b45309" stroke-width="10" stroke-linecap="round"/><path d="M100 138c-16-10-24-18-24-28 0-7 5-12 11-12 6 0 10 3 13 8 3-5 7-8 13-8 6 0 11 5 11 12 0 10-8 18-24 28z" fill="#e11d48"/></svg>';
+}
+function coverSVG(i){
+  if(i===0) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#292018"/><circle cx="620" cy="110" r="52" fill="#fef3c7"/><circle cx="620" cy="110" r="70" fill="none" stroke="#d4a017" stroke-width="3" opacity="0.7"/><path d="M0 300 L140 170 L260 260 L380 140 L520 270 L650 180 L800 290 V450 H0 Z" fill="#2a6b5e"/><path d="M0 340 L180 230 L340 320 L500 210 L660 310 L800 240 V450 H0 Z" fill="#173f38"/><path d="M140 170 l22 26 h-44z M380 140 l24 28 h-48z" fill="#fef9c3"/><path d="M90 120 q14-12 28 0 q14-12 28 0 M180 92 q12-10 24 0 q12-10 24 0" stroke="#fef3c7" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="200" cy="380" rx="180" ry="22" fill="#ffffff" opacity="0.14"/><ellipse cx="580" cy="400" rx="200" ry="24" fill="#ffffff" opacity="0.12"/></svg>';
+  if(i===1) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#fef9e7"/><circle cx="400" cy="330" r="95" fill="#f59e0b"/><path d="M0 330 Q200 280 400 320 T800 310 V450 H0 Z" fill="#65a30d"/><path d="M0 380 Q240 340 480 370 T800 360 V450 H0 Z" fill="#3f6212"/><g fill="#e11d48"><circle cx="110" cy="360" r="16"/><circle cx="150" cy="382" r="12"/><circle cx="660" cy="368" r="15"/><circle cx="700" cy="390" r="11"/></g><g fill="#f472b6"><circle cx="240" cy="392" r="13"/><circle cx="560" cy="398" r="13"/><circle cx="400" cy="404" r="11"/></g><g stroke="#3f6212" stroke-width="5"><path d="M110 376 v22 M150 394 v16 M660 383 v20 M700 401 v14 M240 405 v16 M560 411 v14"/></g></svg>';
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#fff7ed"/><rect y="300" width="800" height="150" fill="#b45309"/><rect y="292" width="800" height="14" fill="#92400e"/><path d="M310 300 v-58 a14 14 0 0 1 14-14 h110 a14 14 0 0 1 14 14 v58z" fill="#ffffff" stroke="#78350f" stroke-width="6"/><path d="M448 248 q34 6 30 30 q-3 20-32 20" fill="none" stroke="#78350f" stroke-width="8"/><path d="M352 206 q10-18 0-34 M392 210 q12-20 0-38 M428 206 q10-18 0-34" stroke="#a8a29e" stroke-width="7" fill="none" stroke-linecap="round"/><ellipse cx="378" cy="306" rx="120" ry="14" fill="#78350f" opacity="0.25"/><circle cx="600" cy="250" r="34" fill="#fbbf24"/><circle cx="180" cy="120" r="20" fill="#fde68a"/><circle cx="640" cy="100" r="14" fill="#fde68a"/></svg>';
+}
+var AVATARS=[{name:"Hoa nở",svg:avatarSVG},{name:"Bình minh",svg:avatarSVG},{name:"Tổ ấm",svg:avatarSVG}];
+var COVERS=[{name:"Núi non",svg:coverSVG},{name:"Vườn hoa",svg:coverSVG},{name:"Ấm trà",svg:coverSVG}];
+
+/* ============ DATA ============ */
+var TOPICS=[
+  {id:"songvui",icon:"🌻",label:"Sống vui tuổi già",category:"Blog cá nhân",
+   names:["Tuổi Già Vẫn Vui","Sống Vui Mỗi Ngày","Những Ngày Tháng Đẹp"],
+   intros:["Chia sẻ cách sống vui, sống khỏe mỗi ngày sau tuổi 60.","Nơi kể chuyện đời thường, vui vẻ và bình yên.","Mỗi ngày một niềm vui nhỏ cho tuổi già thêm đẹp."]},
+  {id:"tho",icon:"✍️",label:"Thơ và tâm sự",category:"Blog cá nhân",
+   names:["Thơ Tuổi Chiều","Tâm Sự Tuổi Già","Vần Thơ Bình Yên"],
+   intros:["Nơi chia sẻ thơ và những tâm sự nhẹ nhàng tuổi chiều.","Viết cho mình, viết cho bạn bè cùng tuổi.","Thơ, chuyện và những phút giây bình yên."]},
+  {id:"nauan",icon:"🍲",label:"Ăn uống, nấu nướng",category:"Blog cá nhân",
+   names:["Bếp Nhà Ấm Áp","Món Ngon Mỗi Ngày","Cơm Nhà Là Nhất"],
+   intros:["Chia sẻ món ăn ngon, dễ làm tại nhà mỗi ngày.","Nấu ăn bằng tình thương cho gia đình.","Bếp nhỏ, món ngon, nhà thêm ấm."]},
+  {id:"giadinh",icon:"👨‍👩‍👧",label:"Gia đình, con cháu",category:"Blog cá nhân",
+   names:["Gia Đình Là Tất Cả","Bên Con Bên Cháu","Tổ Ấm Yêu Thương"],
+   intros:["Nơi lưu giữ khoảnh khắc vui bên con cháu.","Chia sẻ chuyện gia đình ấm áp mỗi ngày.","Yêu thương bắt đầu từ những điều nhỏ nhất."]},
+  {id:"tranh",icon:"🎨",label:"Tranh và đồ thủ công",category:"Blog cá nhân",
+   names:["Đôi Tay Kể Chuyện","Tranh Cát Và Đời","Góc Thủ Công Nhỏ"],
+   intros:["Chia sẻ tranh và đồ thủ công làm bằng đôi tay.","Mỗi tác phẩm là một niềm vui và sự kiên nhẫn.","Làm chậm, làm đẹp, sống có mục đích mỗi ngày."]},
+  {id:"banhang",icon:"🛍️",label:"Bán hàng nhỏ tại nhà",category:"Cửa hàng",
+   names:["Góc Bán Hàng Nhỏ","Quầy Nhỏ Tại Nhà","Hàng Nhà Làm Ngon"],
+   intros:["Bán những món nhà làm, ngon và sạch.","Góc nhỏ bán hàng tại nhà, uy tín là trên hết.","Mời bạn ghé xem hàng nhà làm mỗi ngày."]}
+];
+
+var state={step:1,topic:null,namePick:null,customName:"",introPick:null,customIntro:"",avatar:0,cover:0};
+
+/* ============ HELPERS ============ */
+function $(id){return document.getElementById(id)}
+function topic(){return TOPICS.find(function(t){return t.id===state.topic})}
+function finalName(){var c=state.customName.trim(); if(c) return c; if(state.namePick!==null&&topic()) return topic().names[state.namePick]; return ""}
+function finalIntro(){var c=state.customIntro.trim(); if(c) return c; if(state.introPick!==null&&topic()) return topic().intros[state.introPick]; return ""}
+function finalCategory(){ if(topic()&&topic().category) return topic().category; return "Blog cá nhân"; }
+var toastTimer=null;
+function showToast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show")},2600)}
+
+function goToStep(n){
+  state.step=n;
+  for(var i=1;i<=5;i++){ $("step"+i).classList.toggle("active", i===n); }
+  $("progressLabel").textContent="Bước "+n+" / 5";
+  var bars=$("progressBar").children;
+  for(var j=0;j<bars.length;j++){
+    bars[j].className = (j < n-1) ? "done" : (j===n-1 ? "now" : "");
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(n===5) renderFinal();
+}
+function fbMockHTML(){
+  var name=finalName()||"Tên Page của bạn";
+  var intro=finalIntro()||"Câu giới thiệu của bạn sẽ hiện ở đây.";
+  var cat=finalCategory();
+  return '<div class="fb-cover">'+coverSVG(state.cover)+'</div><div class="fb-body"><div class="fb-avatar">'+avatarSVG(state.avatar)+'</div><div class="fb-name">'+escapeHTML(name)+'</div><div class="fb-intro">'+escapeHTML(intro)+'</div><div class="fb-category">Hạng mục: <strong>'+escapeHTML(cat)+'</strong></div><span class="fb-follow">👍 &nbsp;Theo dõi Page</span></div>';
+}
+function escapeHTML(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function renderMock4(){ $("fbMock4").innerHTML=fbMockHTML(); }
+
+/* ============ STEP 1 ============ */
+var grid=$("topicGrid");
+TOPICS.forEach(function(t){
+  var b=document.createElement("button");
+  b.className="pick-card"; b.type="button"; b.dataset.id=t.id;
+  b.innerHTML='<span class="icon" aria-hidden="true">'+t.icon+'</span><span class="label">'+t.label+'</span><span class="check" aria-hidden="true">✓</span>';
+  b.addEventListener("click",function(){
+    state.topic=t.id;
+    grid.querySelectorAll(".pick-card").forEach(function(c){c.classList.toggle("selected",c.dataset.id===t.id)});
+    $("next1").disabled=false;
+    buildNameStep(); buildIntroStep();
+  });
+  grid.appendChild(b);
+});
+$("next1").addEventListener("click",function(){ if(state.topic) goToStep(2); });
+
+/* ============ STEP 2 ============ */
+function buildNameStep(){
+  var list=$("nameList"); list.innerHTML="";
+  if(!topic()) return;
+  topic().names.forEach(function(n,idx){
+    var b=document.createElement("button");
+    b.className="option-card"+(state.namePick===idx?" selected":""); b.type="button";
+    b.innerHTML='<span>'+escapeHTML(n)+'</span><span class="check" aria-hidden="true">✓</span>';
+    b.addEventListener("click",function(){
+      state.namePick=idx; state.customName=""; $("customName").value="";
+      list.querySelectorAll(".option-card").forEach(function(c,i){c.classList.toggle("selected",i===idx)});
+      updateNamePreview();
+    });
+    list.appendChild(b);
+  });
+  updateNamePreview();
+}
+function updateNamePreview(){
+  var n=finalName();
+  $("namePreview").textContent = n ? n : "— chưa chọn tên —";
+  $("next2").disabled = !n;
+}
+$("customName").addEventListener("input",function(e){
+  state.customName=e.target.value;
+  if(e.target.value.trim()){
+    state.namePick=null;
+    $("nameList").querySelectorAll(".option-card").forEach(function(c){c.classList.remove("selected")});
+  }
+  updateNamePreview();
+});
+$("next2").addEventListener("click",function(){ if(finalName()) goToStep(3); });
+
+/* ============ STEP 3 ============ */
+function buildIntroStep(){
+  var list=$("introList"); list.innerHTML="";
+  if(!topic()) return;
+  topic().intros.forEach(function(s,idx){
+    var b=document.createElement("button");
+    b.className="option-card small-text"+(state.introPick===idx?" selected":""); b.type="button";
+    b.innerHTML='<span>'+escapeHTML(s)+'</span><span class="check" aria-hidden="true">✓</span>';
+    b.addEventListener("click",function(){
+      state.introPick=idx; state.customIntro=""; $("customIntro").value="";
+      list.querySelectorAll(".option-card").forEach(function(c,i){c.classList.toggle("selected",i===idx)});
+      updateIntroPreview();
+    });
+    list.appendChild(b);
+  });
+  updateIntroPreview();
+}
+function updateIntroPreview(){
+  var s=finalIntro();
+  $("introPreview").textContent = s ? s : "— chưa chọn câu nào —";
+  $("next3").disabled = !s;
+}
+$("customIntro").addEventListener("input",function(e){
+  state.customIntro=e.target.value;
+  if(e.target.value.trim()){
+    state.introPick=null;
+    $("introList").querySelectorAll(".option-card").forEach(function(c){c.classList.remove("selected")});
+  }
+  updateIntroPreview();
+});
+$("next3").addEventListener("click",function(){ if(finalIntro()){ renderMock4(); goToStep(4); } });
+
+/* ============ STEP 4 ============ */
+function buildArt(){
+  var ar=$("avatarRow"); ar.innerHTML="";
+  AVATARS.forEach(function(a,idx){
+    var b=document.createElement("button");
+    b.className="art-card avatar"+(state.avatar===idx?" selected":""); b.type="button";
+    b.innerHTML=a.svg(idx)+'<span class="art-name">'+a.name+'</span>';
+    b.addEventListener("click",function(){
+      state.avatar=idx;
+      ar.querySelectorAll(".art-card").forEach(function(c,i){c.classList.toggle("selected",i===idx)});
+      renderMock4();
+    });
+    ar.appendChild(b);
+  });
+  var cr=$("coverRow"); cr.innerHTML="";
+  COVERS.forEach(function(c,idx){
+    var b=document.createElement("button");
+    b.className="art-card"+(state.cover===idx?" selected":""); b.type="button";
+    b.innerHTML=c.svg(idx)+'<span class="art-name">'+c.name+'</span>';
+    b.addEventListener("click",function(){
+      state.cover=idx;
+      cr.querySelectorAll(".art-card").forEach(function(el,i){el.classList.toggle("selected",i===idx)});
+      renderMock4();
+    });
+    cr.appendChild(b);
+  });
+}
+buildArt(); renderMock4();
+$("next4").addEventListener("click",function(){ goToStep(5); });
+
+/* Back buttons */
+document.querySelectorAll("[data-back]").forEach(function(b){
+  b.addEventListener("click",function(){ goToStep(parseInt(b.dataset.back,10)); });
+});
+
+/* ============ STEP 5 ============ */
+function renderFinal(){
+  $("fbMock5").innerHTML=fbMockHTML();
+  $("finalName").textContent=finalName();
+  $("finalCategory").textContent=finalCategory();
+  $("finalIntro").textContent=finalIntro();
+}
+function copyText(txt,okMsg){
+  function done(){ showToast(okMsg); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); });
+  } else { fallbackCopy(txt); done(); }
+}
+function fallbackCopy(txt){
+  var ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+var selectedPageType="Blog cá nhân";
+document.querySelectorAll("#typeList .option-card").forEach(function(card){
+  card.addEventListener("click",function(){
+    selectedPageType=card.dataset.type;
+    document.querySelectorAll("#typeList .option-card").forEach(function(c){c.classList.toggle("selected",c===card)});
+  });
+});
+$("copyTypeBtn").addEventListener("click",function(){ copyText(selectedPageType,"Đã sao chép loại Page: "+selectedPageType+" ✓"); });
+$("copyNameBtn").addEventListener("click",function(){ copyText(finalName(),"Đã sao chép tên Page ✓"); });
+$("copyCategoryBtn").addEventListener("click",function(){ copyText(finalCategory(),"Đã sao chép hạng mục ✓"); });
+$("copyIntroBtn").addEventListener("click",function(){ copyText(finalIntro(),"Đã sao chép câu giới thiệu ✓"); });
+
+function downloadPNG(svgStr,w,h,filename){
+  var blob=new Blob([svgStr],{type:"image/svg+xml;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var img=new Image();
+  img.onload=function(){
+    var canvas=document.createElement("canvas"); canvas.width=w; canvas.height=h;
+    var ctx=canvas.getContext("2d"); ctx.drawImage(img,0,0,w,h);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(function(b){
+      var a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      showToast("Đã tải ảnh về máy ✓");
+    },"image/png");
+  };
+  img.src=url;
+}
+$("dlAvatarBtn").addEventListener("click",function(){ downloadPNG(avatarSVG(state.avatar),800,800,"anh-dai-dien-page.png"); });
+$("dlCoverBtn").addEventListener("click",function(){ downloadPNG(coverSVG(state.cover),1640,924,"anh-bia-page.png"); });
+
+/* Init progress highlight for step 1 */
+(function(){var bars=$("progressBar").children; if(bars[0]) bars[0].className="now";})();
+
+$("restartBtn").addEventListener("click",function(){
+  state={step:1,topic:null,namePick:null,customName:"",introPick:null,customIntro:"",avatar:0,cover:0};
+  $("customName").value=""; $("customIntro").value="";
+  grid.querySelectorAll(".pick-card").forEach(function(c){c.classList.remove("selected")});
+  $("next1").disabled=true;
+  buildArt(); renderMock4();
+  goToStep(1);
+  showToast("Đã làm lại từ đầu");
+});
+</script>
+</body>
+</html>
