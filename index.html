@@ -171,6 +171,24 @@ textarea.big-input{min-height:88px;resize:vertical}
   margin-top:28px;text-align:center;font-size:1.25rem;font-weight:700;line-height:1.55;
   background:var(--primary-soft);border-radius:var(--radius);padding:24px 20px;
 }
+
+/* Groups section (Step 5) */
+.groups-section{margin-top:36px}
+.groups-title{font-size:1.6rem;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-.01em}
+.groups-intro{font-size:1.15rem;line-height:1.6;margin:0 0 20px}
+.group-list{display:flex;flex-direction:column;gap:14px}
+.group-btn{
+  display:flex;align-items:center;gap:16px;width:100%;text-align:left;text-decoration:none;
+  background:var(--card);border:3px solid var(--primary);border-radius:var(--radius);
+  padding:18px 20px;min-height:64px;color:var(--text);
+}
+.group-btn:active{transform:scale(.99)}
+.group-btn .g-main{flex:1;min-width:0}
+.group-btn .g-name{display:block;font-size:1.1rem;font-weight:800;line-height:1.35}
+.group-btn .g-members{display:block;font-size:1rem;font-weight:700;color:var(--primary-dark);margin-top:3px}
+.group-btn .g-desc{display:block;font-size:1rem;font-weight:600;color:var(--muted);margin-top:3px;line-height:1.45}
+.group-btn .g-arrow{flex-shrink:0;font-size:1.5rem;font-weight:800;color:var(--primary)}
+.groups-note{font-size:1rem;color:var(--muted);text-align:center;margin:18px 0 0;line-height:1.55}
 .restart-link{
   display:flex;align-items:center;justify-content:center;width:100%;margin-top:18px;min-height:56px;
   background:none;border:none;color:var(--muted);font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:4px;
@@ -329,6 +347,54 @@ textarea.big-input{min-height:88px;resize:vertical}
           <p><strong>Bấm Tiếp theo cho tới khi thấy nút Xong</strong><br>Trên Facebook, bấm nút <strong>Tiếp theo</strong> ở phía dưới màn hình. Cứ bấm tiếp qua các màn hình sau — mấy màn hình này cứ để nguyên như vậy, không cần chọn thêm gì. Khi nào thấy nút <strong>Xong</strong> thì bấm vào nút Xong. Vậy là Page của bạn đã được tạo xong!</p>
         </div>
       </div>
+    </div>
+
+    <div class="groups-section">
+      <h2 class="groups-title">Tham gia vài nhóm cho vui</h2>
+      <p class="groups-intro">Có Page rồi, bạn vào thêm vài nhóm của các bạn cùng tuổi cho vui nhé. Chạm vào nút của nhóm bạn thích — Facebook sẽ mở ra — rồi bấm nút <strong>Tham gia nhóm</strong> ở trên cùng.</p>
+      <div class="group-list">
+        <a class="group-btn" href="https://www.facebook.com/groups/1046365365376041/" target="_blank" rel="noopener">
+          <span class="g-main">
+            <span class="g-name">Hội người cao tuổi - nhưng không già</span>
+            <span class="g-members">Khoảng 164 nghìn thành viên</span>
+            <span class="g-desc">Không quảng cáo mua bán, chỉ giao lưu cho vui</span>
+          </span>
+          <span class="g-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="group-btn" href="https://www.facebook.com/groups/hoituoigiavuive/" target="_blank" rel="noopener">
+          <span class="g-main">
+            <span class="g-name">Hội tuổi già tâm sự vui vẻ</span>
+            <span class="g-members">Khoảng 535 nghìn thành viên</span>
+            <span class="g-desc">Tâm sự, chia sẻ chuyện tuổi già</span>
+          </span>
+          <span class="g-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="group-btn" href="https://www.facebook.com/groups/1934042310134310/" target="_blank" rel="noopener">
+          <span class="g-main">
+            <span class="g-name">Hội người cao tuổi - nhưng không già (nhóm lớn)</span>
+            <span class="g-members">Khoảng 427 nghìn thành viên</span>
+            <span class="g-desc">Giao lưu, chia sẻ buồn vui trong cuộc sống</span>
+          </span>
+          <span class="g-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="group-btn" href="https://www.facebook.com/groups/hoicaotuoi/" target="_blank" rel="noopener">
+          <span class="g-main">
+            <span class="g-name">Giao lưu thơ ca &amp; ảnh đẹp</span>
+            <span class="g-members">Khoảng 58 nghìn thành viên</span>
+            <span class="g-desc">Thơ ca và ảnh đẹp cho người cao tuổi</span>
+          </span>
+          <span class="g-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="group-btn" href="https://www.facebook.com/groups/2556132358019514/" target="_blank" rel="noopener">
+          <span class="g-main">
+            <span class="g-name">Tâm tư tuổi già</span>
+            <span class="g-members">Khoảng 17 nghìn thành viên</span>
+            <span class="g-desc">Chuyện đời, kết bạn bốn phương</span>
+          </span>
+          <span class="g-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="groups-note">Vào nhóm nào cũng được, không thích thì rời nhóm sau, không sao cả.</p>
     </div>
 
     <div class="encourage">Bạn làm được rồi đấy! 💛<br>Cứ làm chậm rãi từng bước một.<br>Page đầu tiên không cần hoàn hảo — có Page để chia sẻ là vui rồi.</div>
